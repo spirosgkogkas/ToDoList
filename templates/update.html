@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+    {% block body %}
+        <div>
+            <button type="button" ><a href="/">Home</a></button>
+        </div>
+        <div>
+            <h2 id="middle_h1">Update Task</h2>
+            <form id="form1" action="/update/{{ task.id }}" method="POST">
+                <input id="form1_input" type="text" name="content" value="{{ task.content }}">
+                <input type="submit" value="Update">
+            </form>
+            {% set msgs = get_flashed_messages() %}
+            {% if msgs %}
+                {% for msg in msgs %}
+                    <h2 id="flash_h2">{{ msg }}</h2>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endblock body %}

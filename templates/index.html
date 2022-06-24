@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}<title>My index Page </title>{% endblock title %}
+
+{% block body %}
+    <div>
+        {% if tasks %}
+            <table border="1">
+                <caption>ToDoList</caption>
+                <tr>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.content }}</td>
+                    <td>{{ task.date.date() }}</td>
+                    <td><a href="/delete/{{task.id}}">Delete</a><br><a href="/update/{{task.id}}">Update</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h1 id="middle_h1">ToDoList</h1>
+            <h3 id="middle_h3">There are no tasks yet, give one below! </h3>
+        {% endif %}
+        <form id="form1" action="/get_Task" method="POST">
+            <input id="form1_input" type="text" name="task">
+            <input type="submit" value="Add Task">
+        </form>
+        {% set messages=get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in get_flashed_messages() %}
+                    <h2 id="flash_h2">{{ msg }}</h2>
+                {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
